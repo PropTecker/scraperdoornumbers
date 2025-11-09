@@ -84,10 +84,19 @@ The Excel file contains:
 
 ## Troubleshooting
 
+### WebDriverException or Browser Initialization Errors
+- **Most common issue**: This typically happens when ChromeDriver can't start
+- **Solution**: Make sure to run the installation cell (Step 1) completely before proceeding
+- **Verify installation**: The installation cell should complete without errors
+- **Binary location**: The notebook is configured to use `/usr/bin/chromium-browser`
+- **ChromeDriver path**: Should be at `/usr/bin/chromedriver` after installation
+- If issues persist, restart the Colab runtime (Runtime → Restart runtime) and run all cells again
+
 ### No addresses found
 - **Check extension**: Make sure your Chrome extension is properly authenticated
 - **Try manual login**: You may need to manually log in through the extension before scraping
 - **Check outcodes**: Verify your outcodes are valid and exist on Rightmove
+- **Extension warnings**: If you see a warning about extension extraction, the scraper will continue but may not be authenticated
 
 ### Scraper is slow
 - This is normal! Each page needs time to load
@@ -98,6 +107,7 @@ The Excel file contains:
 - Make sure you're running in Google Colab (not locally)
 - Re-run the installation cell if you see Chrome-related errors
 - Check that your extension file is not corrupted
+- The browser runs in headless mode (no visible window) - this is normal for Colab
 
 ### Excel file issues
 - If download fails, check your browser's pop-up blocker
