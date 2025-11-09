@@ -30,6 +30,8 @@ You'll need two files:
 #### Outcodes JSON File
 - A JSON file containing the outcodes you want to search
 - Format: `[{"code":1,"outcode":"AB10"},{"code":2,"outcode":"AB11"}, ...]`
+- **code**: The numeric location identifier used by Rightmove
+- **outcode**: The postcode outcode (e.g., "SW16", "AB10")
 - See `sample_outcodes.json` for an example
 
 ### 3. Run the Notebook
@@ -46,16 +48,20 @@ Simply run each cell in order:
 ## How It Works
 
 ### URL Structure
-The scraper builds Rightmove URLs with the format:
+The scraper builds Rightmove URLs with the complete format:
 ```
-https://www.rightmove.co.uk/property-for-sale/find.html?locationIdentifier=OUTCODE%5E{outcode}&index={index}
+https://www.rightmove.co.uk/property-for-sale/find.html?useLocationIdentifier=true&locationIdentifier=OUTCODE%5E{code}&radius=0.0&_includeSSTC=on&index={index}&sortType=2&channel=BUY&transactionType=BUY&displayLocationIdentifier={outcode}.html&includeSSTC=true
 ```
 
-### Pagination
-- First page: `index=0`
-- Second page: `index=24`
-- Third page: `index=48`
-- And so on... (increments by 24)
+Where:
+- `{code}` is the numeric location identifier (e.g., 2502)
+- `{outcode}` is the postcode outcode (e.g., SW16)
+- `{index}` is the pagination offset (0, 24, 48, etc.)
+
+Example URLs:
+- **Page 1**: index=0
+- **Page 2**: index=24
+- **Page 3**: index=48
 
 ### Address Extraction
 For each property listing, the scraper:
@@ -67,6 +73,7 @@ For each property listing, the scraper:
 
 ### Output Format
 The Excel file contains:
+- **Code**: The numeric location identifier
 - **Outcode**: The postcode outcode searched
 - **Address**: The full property address
 
