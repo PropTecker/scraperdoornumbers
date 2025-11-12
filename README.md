@@ -93,20 +93,26 @@ The Excel file contains:
 
 ### WebDriverException or Browser Initialization Errors
 - **Most common issue**: This typically happens when ChromeDriver can't start
+- **The notebook now uses 3 fallback methods**:
+  1. System ChromeDriver at `/usr/bin/chromedriver`
+  2. webdriver-manager automatic installation
+  3. Default Chrome initialization
 - **First steps**:
   1. Ensure the installation cell (Step 1) ran completely without errors
-  2. Check for any error messages during installation
-  3. Restart the Colab runtime: `Runtime → Restart runtime`
-  4. Re-run ALL cells from the beginning in order
-- **Binary location**: The notebook is configured to use `/usr/bin/chromium-browser`
-- **ChromeDriver path**: Should be at `/usr/bin/chromedriver` after installation
+  2. Look for verification messages showing Chromium and ChromeDriver were found
+  3. If you see warnings during installation, restart and try again
 - **If error persists**:
-  - Try running the installation cell again
-  - Check if there are any system updates that need to be applied
-  - The notebook includes detailed error messages to help diagnose the issue
+  1. Runtime → Restart runtime
+  2. Re-run the installation cell and wait for completion
+  3. Check the detailed error messages - they will show which methods failed
+  4. The notebook will try all 3 methods automatically
 - **Extension issues**: If you see warnings about extension loading, the scraper will continue without it
   - This is normal and expected in some cases
   - You may need to handle authentication manually or use a different approach
+- **Last resort**: If all methods fail, there may be a temporary issue with Google Colab's environment
+  - Try creating a new notebook
+  - Try again in a few hours
+  - Consider using a different Google account/Colab instance
 
 ### No addresses found
 - **Check extension**: Make sure your Chrome extension is properly authenticated
@@ -134,13 +140,15 @@ The Excel file contains:
 
 ### Dependencies
 - `selenium==4.15.2` - Web automation
+- `webdriver-manager==4.0.1` - Automatic ChromeDriver management
 - `openpyxl==3.1.2` - Excel file creation
 - `pandas==2.1.3` - Data handling
 
 ### Browser Configuration
 - Runs in headless mode (no visible browser window)
-- Configured for Colab environment
+- Configured for Colab environment with multiple fallback methods
 - Extension loaded automatically
+- Uses webdriver-manager for better ChromeDriver compatibility
 
 ### Safety Features
 - Page limit of 100 pages per outcode (prevents infinite loops)
