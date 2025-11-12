@@ -93,11 +93,20 @@ The Excel file contains:
 
 ### WebDriverException or Browser Initialization Errors
 - **Most common issue**: This typically happens when ChromeDriver can't start
-- **Solution**: Make sure to run the installation cell (Step 1) completely before proceeding
-- **Verify installation**: The installation cell should complete without errors
+- **First steps**:
+  1. Ensure the installation cell (Step 1) ran completely without errors
+  2. Check for any error messages during installation
+  3. Restart the Colab runtime: `Runtime → Restart runtime`
+  4. Re-run ALL cells from the beginning in order
 - **Binary location**: The notebook is configured to use `/usr/bin/chromium-browser`
 - **ChromeDriver path**: Should be at `/usr/bin/chromedriver` after installation
-- If issues persist, restart the Colab runtime (Runtime → Restart runtime) and run all cells again
+- **If error persists**:
+  - Try running the installation cell again
+  - Check if there are any system updates that need to be applied
+  - The notebook includes detailed error messages to help diagnose the issue
+- **Extension issues**: If you see warnings about extension loading, the scraper will continue without it
+  - This is normal and expected in some cases
+  - You may need to handle authentication manually or use a different approach
 
 ### No addresses found
 - **Check extension**: Make sure your Chrome extension is properly authenticated
